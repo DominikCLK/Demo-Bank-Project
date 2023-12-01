@@ -43,7 +43,6 @@ Tags - (D-demo, B-bank, R-requirements, '01'- number of section)
 
 | DB-R02 Invalid Credentials: |
 | --------------------------- |
-
 | DB-R02-01 : Verify that users can not log in with ID less than 8 characters. Visible alert - "identyfikator ma min. 8 znaków"
 | DB-R02-02 : Verify that users can not log in with password less than 8 characters. Visible alert - "hasło ma min. 8 znaków"|
 | DB-R02-03 : Verify that users can not log in with empty ID and fields. Visible alert - "pole wymagane"|
