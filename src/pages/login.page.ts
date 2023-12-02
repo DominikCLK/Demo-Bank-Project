@@ -8,7 +8,13 @@ export class LoginPage extends BasePage {
   userPasswordInput = this.page.getByTestId('password-input');
   loginButton = this.page.getByTestId('login-button');
 
-  loginError = this.page.getByTestId('login-error');
+  loginIdError = this.page.getByTestId('error-login-id');
+  loginPasswordError = this.page.getByTestId('error-login-password');
+
+  titleText = 'Demobank - Bankowość Internetowa - Logowanie';
+  loginIdTextError = 'identyfikator ma min. 8 znaków';
+  loginPasswordTextError = 'hasło ma min. 8 znaków';
+  requiredFieldText = 'pole wymagane';
 
   constructor(page: Page) {
     super(page);
@@ -21,6 +27,12 @@ export class LoginPage extends BasePage {
   async login(loginUserData: LoginUser): Promise<void> {
     await this.userIDInput.fill(loginUserData.userID);
     await this.userPasswordInput.fill(loginUserData.userPassword);
-    await this.loginButton.click();
+
+    const isButtonDisabled =
+      (await this.loginButton.getAttribute('disabled')) === '';
+
+    if (!isButtonDisabled) {
+      await this.loginButton.click();
+    }
   }
 }
