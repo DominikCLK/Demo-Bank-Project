@@ -16,7 +16,7 @@ test.describe('Verify login', () => {
     await loginPage.goto();
   });
 
-  test('Verify that users can successfully log in with valid credentials. @DB-R01-01 @DB-R01-02', async ({
+  test('Verify that users can successfully log in with valid credentials @DB-R01-01 @DB-R01-02', async ({
     page,
   }) => {
     // Arrange
@@ -35,18 +35,61 @@ test.describe('Verify login', () => {
     await expect(pulpitPage.userName).toHaveText(userName);
   });
 
-  test('Verify that users can not log in with ID less than 8 characters. @DB-R02-01', async ({
+  test('Verify that users can not log in with ID less than 8 characters @DB-R02-01', async ({
     page,
   }) => {
     // Arrange
     const invalidID = randomLoginData(7, 8);
 
-    // Act <--to do
+    // Act
     await loginPage.login(invalidID);
-    const title = await pulpitPage.title();
+    const title = await loginPage.title();
 
-    //Assert <--to do
-    expect(title).toContain(pulpitPage.titleText);
-    await expect(page).toHaveURL(pulpitPage.url);
+    //Assert
+    expect(title).toContain(loginPage.titleText);
+    await expect(page).toHaveURL(loginPage.url);
+    await expect(loginPage.loginIdError).toHaveText(loginPage.loginIdTextError);
+  });
+
+  test('Verify that users can not log in with password less than 8 characters @DB-R02-02', async ({
+    page,
+  }) => {
+    // Arrange
+    const invalidID = randomLoginData(8, 7);
+
+    // Act
+    await loginPage.login(invalidID);
+    const title = await loginPage.title();
+    await page.click('body');
+
+    //Assert
+    expect(title).toContain(loginPage.titleText);
+    await expect(page).toHaveURL(loginPage.url);
+    await expect(loginPage.loginPasswordError).toHaveText(
+      loginPage.loginPasswordTextError,
+    );
+  });
+
+  test('Verify that users can not log in with empty password and ID fields @DB-R02-03', async ({
+    page,
+  }) => {
+    // Arrange
+    const title = await loginPage.title();
+
+    // Act
+    await loginPage.userIDInput.click();
+    await loginPage.userPasswordInput.click();
+    await page.click('body');
+
+    //Assert
+    expect(title).toContain(loginPage.titleText);
+    await expect(page).toHaveURL(loginPage.url);
+
+    await expect(loginPage.loginIdError).toHaveText(
+      loginPage.requiredFieldText,
+    );
+    await expect(loginPage.loginPasswordError).toHaveText(
+      loginPage.requiredFieldText,
+    );
   });
 });
