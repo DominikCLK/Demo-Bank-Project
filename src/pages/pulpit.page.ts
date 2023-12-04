@@ -1,5 +1,4 @@
 import { BasePage } from './base.page';
-import { faker } from '@faker-js/faker/locale/pl';
 import { Page } from '@playwright/test';
 
 export class PulpitPage extends BasePage {
@@ -11,8 +10,10 @@ export class PulpitPage extends BasePage {
   amountInput = this.page.locator('#widget_1_transfer_amount');
   titleInput = this.page.locator('#widget_1_transfer_title');
   sendTransferBtn = this.page.getByRole('button', { name: 'wykonaj' });
+  recipientList = this.page.locator('#widget_1_transfer_receiver');
 
-  transferTitle = faker.lorem.sentence({ min: 3, max: 5 });
+  successfulTransferMessage = this.page.locator('#show_messages');
+
   randomOption = Math.floor(Math.random() * 3) + 1;
 
   constructor(page: Page) {
@@ -20,9 +21,7 @@ export class PulpitPage extends BasePage {
   }
 
   async fastTransfer(amount: string, title: string): Promise<void> {
-    await this.page
-      .locator('#widget_1_transfer_receiver')
-      .selectOption(`${this.randomOption}`);
+    await this.recipientList.selectOption(`${this.randomOption}`);
 
     await this.amountInput.fill(amount);
     await this.titleInput.fill(title);
