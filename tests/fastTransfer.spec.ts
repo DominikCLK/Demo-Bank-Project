@@ -2,18 +2,18 @@ import { generateRandomSentence } from '../src/factories/randomData.factory';
 import { LoginPage } from '../src/pages/login.page';
 import { PulpitPage } from '../src/pages/pulpit.page';
 import { testUser } from '../src/test-data/user.data';
-import { SubmitTransferView } from '../src/views/submitTransfer.view';
+import { SubmitFastTransferView } from '../src/views/submitTransfer.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify Fast transfer flow', () => {
   let loginPage: LoginPage;
   let pulpitPage: PulpitPage;
-  let submitTransferView: SubmitTransferView;
+  let submitFastTransferView: SubmitFastTransferView;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     pulpitPage = new PulpitPage(page);
-    submitTransferView = new SubmitTransferView(page);
+    submitFastTransferView = new SubmitFastTransferView(page);
 
     await loginPage.goto();
     await loginPage.login(testUser);
@@ -36,8 +36,10 @@ test.describe('Verify Fast transfer flow', () => {
     await pulpitPage.fastTransfer(moneyValue, transferTitle);
     await pulpitPage.sendTransferBtn.click();
 
-    await expect(pulpitPage.submitViewText).toBeVisible();
-    await submitTransferView.submitTransferBtn.click();
+    await expect(
+      submitFastTransferView.submitViewTextFastTransfer,
+    ).toBeVisible();
+    await submitFastTransferView.submitTransferBtn.click();
 
     //Assert
     await pulpitPage.successfulTransferMessage.waitFor({ state: 'visible' });
