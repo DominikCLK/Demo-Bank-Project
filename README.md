@@ -41,19 +41,18 @@ Tags - (D-demo, B-bank, R-requirements, '01'- number of section)
 | DB-R01-01 : Verify that users can successfully log in with valid credentials. ID and password with exactly 8 characters |
 | DB-R01-02 : Verify that users is on pulpit page. Name and lastname are visible                                          |
 
-| DB-R02 Invalid Credentials: |
-| --------------------------- |
-
-| DB-R02-01 : Verify that users can not log in with ID less than 8 characters. Visible alert - "identyfikator ma min. 8 znaków"
-| DB-R02-02 : Verify that users can not log in with password less than 8 characters. Visible alert - "hasło ma min. 8 znaków"|
-| DB-R02-03 : Verify that users can not log in with empty ID and fields. Visible alert - "pole wymagane"|
+| DB-R01 Invalid Credentials:                                                                                                   |
+| ----------------------------------------------------------------------------------------------------------------------------- |
+| DB-R02-01 : Verify that users can not log in with ID less than 8 characters. Visible alert - "identyfikator ma min. 8 znaków" |
+| DB-R02-02 : Verify that users can not log in with password less than 8 characters. Visible alert - "hasło ma min. 8 znaków"   |
+| DB-R02-03 : Verify that users can not log in with empty ID and fields. Visible alert - "pole wymagane"                        |
 
 - **Dashboard requirements**
 
 | DB-R03 Valid Fast transfer flow:                                                                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------- |
 | DB-R03-01 : Verify that users can successfully create a fast transfer. Select a recipient from the list. Use all available funds, fill title input |
-| DB-R03-02 : Verify that the popup is visible, contains the transfer recipient, transfer amount and title. Close popup by clicking "Ok" button      |
+| DB-R03-02 : Verify that the popup is visible. Close popup by clicking "Ok" button                                                                  |
 
 | DB-R04 Invalid Fast transfer flow:                                                                                                                                              |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -61,6 +60,12 @@ Tags - (D-demo, B-bank, R-requirements, '01'- number of section)
 | DB-R04-02 : Verify that users can not create a fast transfer. Select a recipient from the list. Left empty funds input, fill title input. Visible alert "pole wymagane"         |
 | DB-R04-03 : Verify that users can not create a fast transfer. Select a recipient from the list. Use all available funds, left empty title input. Visible alert "pole wymagane"  |
 | DB-R04-04 : Verify that users can not create a fast transfer. Do not fill all inputs, click "execute" button. Visible alert "pole wymagane"                                     |
+
+| DB-R03 Valid phone transfer flow:                                                                                                                      |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| DB-R05-01 : Verify that users can successfully create a phone transfer. Select a number from the list. Type amount from 5 to 150, select checbox       |
+| DB-R05-02 : Verify that the popup is visible. Close popup by clicking "Ok" button                                                                      |
+| DB-R05-03 : Verify that users can successfully create a phone transfer. Select 504 xxx xxx number from the list. Select random amount from amount list |
 
 ## Author
 
