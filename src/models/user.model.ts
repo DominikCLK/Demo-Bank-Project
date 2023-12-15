@@ -1,8 +1,8 @@
-export interface LoginUser {
+export interface LoginUserModel {
   userID: string;
   userPassword: string;
 }
 
-export interface UserName {
+export interface UserNameModel {
   userName: string;
 }

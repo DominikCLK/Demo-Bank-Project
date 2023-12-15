@@ -1,5 +1,5 @@
 import { randomLoginData } from '../src/factories/user.factory';
-import { UserName } from '../src/models/user.model';
+import { UserNameModel } from '../src/models/user.model';
 import { LoginPage } from '../src/pages/login.page';
 import { PulpitPage } from '../src/pages/pulpit.page';
 import { loggedTestUser, testUser } from '../src/test-data/user.data';
@@ -20,7 +20,7 @@ test.describe('Verify login', () => {
     page,
   }) => {
     // Arrange
-    const loggedUserData: UserName = {
+    const loggedUserData: UserNameModel = {
       userName: loggedTestUser.userName,
     };
     const userName = loggedUserData.userName;

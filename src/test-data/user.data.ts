@@ -1,10 +1,10 @@
-import { LoginUser, UserName } from '../models/user.model';
+import { LoginUserModel, UserNameModel } from '../models/user.model';
 
-export const testUser: LoginUser = {
+export const testUser: LoginUserModel = {
   userID: process.env.USER_ID ?? '[NOT SET]',
   userPassword: process.env.USER_PASSWORD ?? '[NOT SET]',
 };
 
-export const loggedTestUser: UserName = {
+export const loggedTestUser: UserNameModel = {
   userName: process.env.LOGGED_USER_NAME ?? '[NOT SET]',
 };
