@@ -1,7 +1,6 @@
 import { Page } from '@playwright/test';
 
-export class SubmitTransferView {
+export class SubmitFastTransferView {
   submitTransferBtn = this.page.getByTestId('close-button');
-
   constructor(private page: Page) {}
 }

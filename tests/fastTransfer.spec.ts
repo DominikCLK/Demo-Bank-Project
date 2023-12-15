@@ -2,18 +2,18 @@ import { generateRandomSentence } from '../src/factories/randomData.factory';
 import { LoginPage } from '../src/pages/login.page';
 import { PulpitPage } from '../src/pages/pulpit.page';
 import { testUser } from '../src/test-data/user.data';
-import { SubmitTransferView } from '../src/views/submitTransfer.view';
+import { SubmitFastTransferView } from '../src/views/submitTransfer.view';
 import { expect, test } from '@playwright/test';
 
 test.describe('Verify Fast transfer flow', () => {
   let loginPage: LoginPage;
   let pulpitPage: PulpitPage;
-  let submitTransferView: SubmitTransferView;
+  let submitFastTransferView: SubmitFastTransferView;
 
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     pulpitPage = new PulpitPage(page);
-    submitTransferView = new SubmitTransferView(page);
+    submitFastTransferView = new SubmitFastTransferView(page);
 
     await loginPage.goto();
     await loginPage.login(testUser);
@@ -27,90 +27,129 @@ test.describe('Verify Fast transfer flow', () => {
     await page.close();
   });
 
-  test('Verify that users can successfully create a fast transfer @DB-R03-01 @DB-R03-02', async ({}) => {
+  test('Verify that users can successfully create a fast transfer for Jan Demobankowy @DB-R03-01 @DB-R03-02', async ({}) => {
     // Arrange
-    const moneyValue = await pulpitPage.moneyValue.innerText();
+    const availableFunds = await pulpitPage.moneyValue.innerText();
     const transferTitle = generateRandomSentence(10);
+    const expectedMessage = `Przelew wykonany! Jan Demobankowy - ${availableFunds},00PLN - ${transferTitle}`;
+    const option = '1';
 
     // Act
-    await pulpitPage.fastTransfer(moneyValue, transferTitle);
-    await pulpitPage.sendTransferBtn.click();
-
-    await expect(pulpitPage.submitViewText).toBeVisible();
-    await submitTransferView.submitTransferBtn.click();
+    await pulpitPage.createFastTransfer(option, availableFunds, transferTitle);
+    await pulpitPage.sendTransferBtn.click({ delay: 500 });
+    await submitFastTransferView.submitTransferBtn.click({ delay: 500 });
 
     //Assert
-    await pulpitPage.successfulTransferMessage.waitFor({ state: 'visible' });
-    await expect(pulpitPage.successfulTransferMessage).toContainText(
-      moneyValue,
+    await expect(pulpitPage.successfulTransferMessage).toHaveText(
+      expectedMessage,
     );
-    await expect(pulpitPage.successfulTransferMessage).toContainText(
+  });
+
+  //this test need to be refactored
+  test('Verify available funds after transfer', async ({}) => {
+    // Arrange
+    const availableFunds = await pulpitPage.moneyValue.innerText();
+    const transferTitle = generateRandomSentence(10);
+    const expectedMessage = `Przelew wykonany! Michael Scott - ${pulpitPage.randomTransferAmount},00PLN - ${transferTitle}`;
+    const option = '3';
+    const finalAmount =
+      Number(availableFunds) - pulpitPage.randomTransferAmount;
+
+    // Act
+    await pulpitPage.createFastTransfer(
+      option,
+      String(pulpitPage.randomTransferAmount),
       transferTitle,
     );
-  });
-
-  test('Verify that users can not create a fast transfer - empty recipient @DB-R04-01', async ({}) => {
-    // Arrange
-    const moneyValue = await pulpitPage.moneyValue.innerText();
-    const transferTitle = generateRandomSentence(10);
-
-    // Act
-    await pulpitPage.fastTransfer(moneyValue, transferTitle);
-    await pulpitPage.recipientList.selectOption('');
-    await pulpitPage.sendTransferBtn.click();
+    await pulpitPage.sendTransferBtn.click({ delay: 500 });
+    await submitFastTransferView.submitTransferBtn.click({ delay: 500 });
 
     //Assert
-    await expect(pulpitPage.recipientRequiredError).toHaveText(
-      pulpitPage.requiredFieldText,
+    await expect(pulpitPage.successfulTransferMessage).toHaveText(
+      expectedMessage,
     );
+
+    await expect(pulpitPage.moneyValue).toHaveText(String(finalAmount));
   });
 
-  test('Verify that users can not create a fast transfer - empty amount @DB-R04-02', async ({}) => {
-    // Arrange
-    const moneyValue = '';
-    const transferTitle = generateRandomSentence(10);
+  test.describe('Invalid Fast transfer', () => {
+    test('Verify that users can not create a fast transfer - empty recipient @DB-R04-01', async ({}) => {
+      // Arrange
+      const availableFunds = await pulpitPage.moneyValue.innerText();
+      const transferTitle = generateRandomSentence(10);
+      const option = '';
 
-    // Act
-    await pulpitPage.fastTransfer(moneyValue, transferTitle);
+      // Act
+      await pulpitPage.createFastTransfer(
+        option,
+        availableFunds,
+        transferTitle,
+      );
+      await pulpitPage.recipientList.selectOption(option);
+      await pulpitPage.sendTransferBtn.click();
 
-    await pulpitPage.sendTransferBtn.click();
+      //Assert
+      await expect(pulpitPage.recipientRequiredErrorFastTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+    });
 
-    //Assert
-    await expect(pulpitPage.amountRequiredError).toHaveText(
-      pulpitPage.requiredFieldText,
-    );
-  });
+    test('Verify that users can not create a fast transfer - empty amount @DB-R04-02', async ({}) => {
+      // Arrange
+      const availableFunds = '';
+      const transferTitle = generateRandomSentence(10);
+      const option = '2';
 
-  test('Verify that users can not create a fast transfer - empty title @DB-R04-03', async ({}) => {
-    // Arrange
-    const moneyValue = await pulpitPage.moneyValue.innerText();
-    const transferTitle = '';
+      // Act
+      await pulpitPage.createFastTransfer(
+        option,
+        availableFunds,
+        transferTitle,
+      );
+      await pulpitPage.sendTransferBtn.click();
 
-    // Act
-    await pulpitPage.fastTransfer(moneyValue, transferTitle);
-    await pulpitPage.sendTransferBtn.click();
+      //Assert
+      await expect(pulpitPage.amountRequiredErrorFastTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+    });
 
-    //Assert
-    await expect(pulpitPage.titleRequiredError).toHaveText(
-      pulpitPage.requiredFieldText,
-    );
-  });
+    test('Verify that users can not create a fast transfer - empty title @DB-R04-03', async ({}) => {
+      // Arrange
+      const availableFunds = await pulpitPage.moneyValue.innerText();
+      const transferTitle = '';
+      const option = '3';
 
-  test('Verify that users can not create a fast transfer. Do not fill all inputs @DB-R04-04', async ({}) => {
-    // Act
-    await pulpitPage.sendTransferBtn.click();
+      // Act
+      await pulpitPage.createFastTransfer(
+        option,
+        availableFunds,
+        transferTitle,
+      );
+      await pulpitPage.sendTransferBtn.click();
 
-    //Assert
-    await expect(pulpitPage.recipientRequiredError).toHaveText(
-      pulpitPage.requiredFieldText,
-    );
+      //Assert
+      await expect(pulpitPage.titleRequiredErrorFastTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+    });
 
-    await expect(pulpitPage.amountRequiredError).toHaveText(
-      pulpitPage.requiredFieldText,
-    );
+    test('Verify that users can not create a fast transfer. Do not fill all inputs @DB-R04-04', async ({}) => {
+      // Act
+      await pulpitPage.sendTransferBtn.click();
 
-    await expect(pulpitPage.titleRequiredError).toHaveText(
-      pulpitPage.requiredFieldText,
-    );
+      //Assert
+      await expect(pulpitPage.recipientRequiredErrorFastTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+
+      await expect(pulpitPage.amountRequiredErrorFastTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+
+      await expect(pulpitPage.titleRequiredErrorFastTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+    });
   });
 });
