@@ -22,21 +22,38 @@ export class PulpitPage extends BasePage {
   phoneTransferCheckbox = this.page.getByText('zapoznałem się z regulaminem');
   topUpBtn = this.page.getByRole('button', { name: 'doładuj telefon' });
 
-  recipientRequiredError = this.page.getByTestId(
+  recipientRequiredErrorFastTransfer = this.page.getByTestId(
     'error-widget-1-transfer-receiver',
   );
-  amountRequiredError = this.page.getByTestId('error-widget-1-transfer-amount');
-  titleRequiredError = this.page.getByTestId('error-widget-1-transfer-title');
+  amountRequiredErrorFastTransfer = this.page.getByTestId(
+    'error-widget-1-transfer-amount',
+  );
+  titleRequiredErrorFastTransfer = this.page.getByTestId(
+    'error-widget-1-transfer-title',
+  );
 
-  randomFastTransferOption = Math.floor(Math.random() * 3) + 1;
-  randomPhoneAmount = Math.floor(Math.random() * (150 - 5 + 1)) + 5;
+  topUpErrorPhoneTransfer = this.page.getByTestId(
+    'error-widget-1-topup-amount',
+  );
 
+  agreementErrorPhoneTransfer = this.page.getByTestId(
+    'error-widget-1-topup-agreement',
+  );
+
+  //Random phone top up
+  randomPhoneAmountTopUp = Math.floor(Math.random() * (150 - 5 + 1)) + 5;
+
+  //Random transfer amount
+  randomTransferAmount: number = Math.floor(Math.random() * 10000);
+
+  //Random phone number selecting
   phoneNumbersList = ['500 xxx xxx', '502 xxx xxx', '503 xxx xxx'];
   randomPhoneOption =
     this.phoneNumbersList[
       Math.floor(Math.random() * this.phoneNumbersList.length)
     ];
 
+  //Random top up selecting
   topUpAmountList = ['5', '10', '25', '40', '50', '100', '200'];
   randomTopUpOption =
     this.topUpAmountList[
@@ -47,18 +64,17 @@ export class PulpitPage extends BasePage {
     super(page);
   }
 
-  async fastTransfer(amount: string, title: string): Promise<void> {
-    await this.recipientList.selectOption(`${this.randomFastTransferOption}`);
+  async createFastTransfer(
+    option: string,
+    amount: string,
+    title: string,
+  ): Promise<void> {
+    await this.recipientList.selectOption(option);
     await this.amountInput.fill(amount);
     await this.titleInput.fill(title);
   }
-  async phoneTransfer(phone: string, amount: number | string): Promise<void> {
-    await this.phoneList.selectOption(phone);
-    await this.phoneTransferAmountInput.fill(String(amount));
-    await this.phoneTransferCheckbox.check();
-  }
 
-  async phoneTransferSelectOption(
+  async createPhoneTransfer(
     phone: string,
     amount: number | string,
   ): Promise<void> {
@@ -75,7 +91,5 @@ export class PulpitPage extends BasePage {
     } else {
       await this.phoneTransferAmountInput.fill(String(amount));
     }
-
-    await this.phoneTransferCheckbox.check();
   }
 }

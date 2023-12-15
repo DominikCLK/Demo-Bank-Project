@@ -10,14 +10,17 @@ test.describe('Verify Phone transfer flow', () => {
   let submitTransferView: SubmitFastTransferView;
 
   test.beforeEach(async ({ page }) => {
+    // Arrange
     loginPage = new LoginPage(page);
     pulpitPage = new PulpitPage(page);
     submitTransferView = new SubmitFastTransferView(page);
 
+    // Act
     await loginPage.goto();
     await loginPage.login(testUser);
     const title = await pulpitPage.title();
 
+    //Assert
     expect(title).toContain(pulpitPage.titleText);
     await expect(page).toHaveURL(pulpitPage.url);
   });
@@ -26,41 +29,73 @@ test.describe('Verify Phone transfer flow', () => {
     await page.close();
   });
 
-  test('Verify that users can successfully create a phone transfer @DB-R05-01 @DB-R05-02', async ({}) => {
+  test('Verify that users can successfully create a phone transfer @DB-R05-01 @DB-R05-02', async () => {
     // Arrange
-    const amount = pulpitPage.randomPhoneAmount;
+    const amount = pulpitPage.randomPhoneAmountTopUp;
     const phone = pulpitPage.randomPhoneOption;
+    const expectedMessage = `Doładowanie wykonane! ${amount},00PLN na numer ${phone}`;
 
     // Act
-    await pulpitPage.phoneTransferSelectOption(phone, amount);
+    await pulpitPage.createPhoneTransfer(phone, amount);
+    await pulpitPage.phoneTransferCheckbox.check();
     await pulpitPage.topUpBtn.click();
-
-    await expect(submitTransferView.submitViewTextPhoneTransfer).toBeVisible();
     await submitTransferView.submitTransferBtn.click();
 
-    await pulpitPage.successfulTransferMessage.waitFor({ state: 'visible' });
-    await expect(pulpitPage.successfulTransferMessage).toContainText(
-      String(amount),
+    //Assert
+    await expect(pulpitPage.successfulTransferMessage).toHaveText(
+      expectedMessage,
     );
-    await expect(pulpitPage.successfulTransferMessage).toContainText(phone);
   });
 
-  test('Verify that users can successfully create a phone transfer. Select 504 xxx xxx number from the list @DB-R05-03', async ({}) => {
+  test('Verify that users can successfully create a phone transfer. Select 504 xxx xxx number from the list @DB-R05-03', async () => {
     // Arrange
     const amount = pulpitPage.randomTopUpOption;
     const phone = '504 xxx xxx';
+    const expectedMessage = `Doładowanie wykonane! ${amount},00PLN na numer ${phone}`;
 
     // Act
-    await pulpitPage.phoneTransferSelectOption(phone, amount);
+    await pulpitPage.createPhoneTransfer(phone, amount);
+    await pulpitPage.phoneTransferCheckbox.check();
     await pulpitPage.topUpBtn.click();
-
-    await expect(submitTransferView.submitViewTextPhoneTransfer).toBeVisible();
     await submitTransferView.submitTransferBtn.click();
 
-    await pulpitPage.successfulTransferMessage.waitFor({ state: 'visible' });
-    await expect(pulpitPage.successfulTransferMessage).toContainText(
-      String(amount),
+    //Assert
+    await expect(pulpitPage.successfulTransferMessage).toHaveText(
+      expectedMessage,
     );
-    await expect(pulpitPage.successfulTransferMessage).toContainText(phone);
+  });
+
+  test.describe('Invalid Phone transfer', () => {
+    test('Verify that users can not create a phone transfer. Do not type a amount @DB-R06-01', async ({
+      page,
+    }) => {
+      // Arrange
+      const amount = '';
+      const phone = pulpitPage.randomPhoneOption;
+
+      // Act
+      await pulpitPage.createPhoneTransfer(phone, amount);
+      await page.click('body');
+
+      //Assert
+      await expect(pulpitPage.topUpErrorPhoneTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+    });
+
+    test('Verify that users can not create a phone transfer. Do not check permissions @DB-R06-02', async () => {
+      // Arrange
+      const amount = pulpitPage.randomTopUpOption;
+      const phone = pulpitPage.randomPhoneOption;
+
+      // Act
+      await pulpitPage.createPhoneTransfer(phone, amount);
+      await pulpitPage.topUpBtn.click();
+
+      //Assert
+      await expect(pulpitPage.agreementErrorPhoneTransfer).toHaveText(
+        pulpitPage.requiredFieldText,
+      );
+    });
   });
 });
