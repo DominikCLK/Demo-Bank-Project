@@ -36,8 +36,8 @@ test.describe('Verify Fast transfer flow', () => {
 
     // Act
     await pulpitPage.createFastTransfer(option, availableFunds, transferTitle);
-    await pulpitPage.sendTransferBtn.click({ delay: 1000 });
-    await submitFastTransferView.submitTransferBtn.click();
+    await pulpitPage.sendTransferBtn.click({ delay: 500 });
+    await submitFastTransferView.submitTransferBtn.click({ delay: 500 });
 
     //Assert
     await expect(pulpitPage.successfulTransferMessage).toHaveText(
@@ -61,8 +61,8 @@ test.describe('Verify Fast transfer flow', () => {
       String(pulpitPage.randomTransferAmount),
       transferTitle,
     );
-    await pulpitPage.sendTransferBtn.click();
-    await submitFastTransferView.submitTransferBtn.click();
+    await pulpitPage.sendTransferBtn.click({ delay: 500 });
+    await submitFastTransferView.submitTransferBtn.click({ delay: 500 });
 
     //Assert
     await expect(pulpitPage.successfulTransferMessage).toHaveText(
