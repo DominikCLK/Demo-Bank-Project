@@ -1,5 +1,5 @@
 import { randomLoginData } from '../src/factories/user.factory';
-import { UserName } from '../src/models/user.model';
+import { UserNameModel } from '../src/models/user.model';
 import { LoginPage } from '../src/pages/login.page';
 import { PulpitPage } from '../src/pages/pulpit.page';
 import { loggedTestUser, testUser } from '../src/test-data/user.data';
@@ -16,11 +16,11 @@ test.describe('Verify login', () => {
     await loginPage.goto();
   });
 
-  test('Verify that users can successfully log in with valid credentials @DB-R01-01 @DB-R01-02', async ({
+  test('Verify that users can successfully log in with valid credentials. ID and password with exactly 8 characters @DB-R01-01 @DB-R01-02', async ({
     page,
   }) => {
     // Arrange
-    const loggedUserData: UserName = {
+    const loggedUserData: UserNameModel = {
       userName: loggedTestUser.userName,
     };
     const userName = loggedUserData.userName;

@@ -1,3 +1,4 @@
+import { FastTransferModel } from '../models/transfer.model';
 import { BasePage } from './base.page';
 import { Page } from '@playwright/test';
 
@@ -64,14 +65,10 @@ export class PulpitPage extends BasePage {
     super(page);
   }
 
-  async createFastTransfer(
-    option: string,
-    amount: string,
-    title: string,
-  ): Promise<void> {
-    await this.recipientList.selectOption(option);
-    await this.amountInput.fill(amount);
-    await this.titleInput.fill(title);
+  async createFastTransfer(fastTransferData: FastTransferModel): Promise<void> {
+    await this.recipientList.selectOption(fastTransferData.recipientOfTransfer);
+    await this.amountInput.fill(String(fastTransferData.transferAmount));
+    await this.titleInput.fill(fastTransferData.titleOfTransfer);
   }
 
   async createPhoneTransfer(
@@ -91,5 +88,21 @@ export class PulpitPage extends BasePage {
     } else {
       await this.phoneTransferAmountInput.fill(String(amount));
     }
+  }
+
+  async subtractNumbers(a: number, b: number): Promise<number> {
+    return a - b;
+  }
+
+  async getAvailableFunds(): Promise<number> {
+    const availableFundsString = await this.moneyValue.innerText();
+    return Number(availableFundsString);
+  }
+
+  async calculateFundsAfterTransfer(
+    availableFunds: number,
+    transferAmount: number,
+  ): Promise<number> {
+    return this.subtractNumbers(availableFunds, transferAmount);
   }
 }
