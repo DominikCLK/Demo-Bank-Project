@@ -16,7 +16,7 @@ test.describe('Verify login', () => {
     await loginPage.goto();
   });
 
-  test('Verify that users can successfully log in with valid credentials @DB-R01-01 @DB-R01-02', async ({
+  test('Verify that users can successfully log in with valid credentials. ID and password with exactly 8 characters @DB-R01-01 @DB-R01-02', async ({
     page,
   }) => {
     // Arrange

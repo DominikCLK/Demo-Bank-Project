@@ -66,7 +66,7 @@ test.describe('Verify Phone transfer flow', () => {
   });
 
   test.describe('Invalid Phone transfer', () => {
-    test('Verify that users can not create a phone transfer. Do not type a amount @DB-R06-01', async ({
+    test('Verify that users can not create top up phone transfer - empty amount @DB-R06-01', async ({
       page,
     }) => {
       // Arrange
@@ -83,7 +83,7 @@ test.describe('Verify Phone transfer flow', () => {
       );
     });
 
-    test('Verify that users can not create a phone transfer. Do not check permissions @DB-R06-02', async () => {
+    test('Verify that users can not create a phone transfer - unchecked permission @DB-R06-02', async () => {
       // Arrange
       const amount = pulpitPage.randomTopUpOption;
       const phone = pulpitPage.randomPhoneOption;
