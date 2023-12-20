@@ -12,7 +12,7 @@ This project aims to ensure the reliability and functionality of the [Demo Bank]
 
 - **Continuous Integration:** Integrate the testing suite into the continuous integration pipeline for quick feedback.
 
-## Note
+## 💬 Note
 
 For the purposes of the project, fake data is made available in the repository under the .env file
 
@@ -30,42 +30,48 @@ For the purposes of the project, fake data is made available in the repository u
 
 - **Continuous Integration (CI):** Automate testing on code changes for a continuous feedback loop.
 
-# Test requirements
+## ⚡️ Prepare
 
-Tags - (D-demo, B-bank, R-requirements, '01'- number of section)
+### Local recommended tools:
 
-- **Login flow requirements**
+- VS Code
+- Git
+- Node.js (version >16)
 
-| DB-R01 Valid Credentials:                                                                                               |
-| ----------------------------------------------------------------------------------------------------------------------- |
-| DB-R01-01 : Verify that users can successfully log in with valid credentials. ID and password with exactly 8 characters |
-| DB-R01-02 : Verify that users is on pulpit page. Name and lastname are visible                                          |
+### Installation and setup
 
-| DB-R01 Invalid Credentials:                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------- |
-| DB-R02-01 : Verify that users can not log in with ID less than 8 characters. Visible alert - "identyfikator ma min. 8 znaków" |
-| DB-R02-02 : Verify that users can not log in with password less than 8 characters. Visible alert - "hasło ma min. 8 znaków"   |
-| DB-R02-03 : Verify that users can not log in with empty ID and fields. Visible alert - "pole wymagane"                        |
+- Clone the Repository
 
-- **Dashboard requirements**
+```
+git clone https://github.com/DominikCLK/Demo-Bank-Project.git
+```
 
-| DB-R03 Valid Fast transfer flow:                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DB-R03-01 : Verify that users can successfully create a fast transfer. Select a recipient from the list. Use all available funds, fill title input |
-| DB-R03-02 : Verify that the popup is visible. Close popup by clicking "Ok" button                                                                  |
+- (optional) install VSC recommended plugins
+- install dependencies: `npm install`
+- setup Playwright with: `npx playwright install --with-deps chromium`
+- setup husky with: `npx husky install`
+- prepare local env file : `cp .env-template .env`
+- copy app main URL as value `BASE_URL` variable in `.env` file
 
-| DB-R04 Invalid Fast transfer flow:                                                                                                                                              |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| DB-R04-01 : Verify that users can not create a fast transfer. Do not select a recipient from the list. Use all available funds, fill title input. Visible alert "pole wymagane" |
-| DB-R04-02 : Verify that users can not create a fast transfer. Select a recipient from the list. Left empty funds input, fill title input. Visible alert "pole wymagane"         |
-| DB-R04-03 : Verify that users can not create a fast transfer. Select a recipient from the list. Use all available funds, left empty title input. Visible alert "pole wymagane"  |
-| DB-R04-04 : Verify that users can not create a fast transfer. Do not fill all inputs, click "execute" button. Visible alert "pole wymagane"                                     |
+## Use
 
-| DB-R03 Valid phone transfer flow:                                                                                                                      |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| DB-R05-01 : Verify that users can successfully create a phone transfer. Select a number from the list. Type amount from 5 to 150, select checbox       |
-| DB-R05-02 : Verify that the popup is visible. Close popup by clicking "Ok" button                                                                      |
-| DB-R05-03 : Verify that users can successfully create a phone transfer. Select 504 xxx xxx number from the list. Select random amount from amount list |
+Run all tests:
+
+```
+npx playwright test
+```
+
+Run all tests with tags:
+
+```
+npx playwright test --grep /tag/
+```
+
+For more usage cases look in `package.json` scripts section.
+
+## 🔗 Test requirements
+
+- [Test cases](https://docs.google.com/spreadsheets/d/1RqqELBk0kdBnF3xazXMpz79Zdp9VXOKEjNhC_aKY__8/edit?usp=sharing)
 
 ## Author
 
