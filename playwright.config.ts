@@ -6,11 +6,15 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
   globalSetup: 'src/global-setup.ts',
-  timeout: 60_000,
-  expect: { timeout: 10_000 },
+  timeout: 30_000,
+  expect: { timeout: 5_000 },
+
   fullyParallel: true,
-  retries: 0,
-  workers: undefined,
+  forbidOnly: !!process.env.CI,
+  retries: process.env.CI ? 2 : 0,
+  workers: process.env.CI ? 1 : undefined,
+
+  //Reporters
   reporter: [
     ['html'],
     ['github'],
@@ -20,7 +24,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.BASE_URL,
     actionTimeout: 0,
-    trace: 'on',
+    trace: 'retain-on-failure',
     video: 'retain-on-failure',
     screenshot: 'only-on-failure',
   },

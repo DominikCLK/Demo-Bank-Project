@@ -7,12 +7,12 @@ on:
     branches: [main, master]
   pull_request:
     branches: [main, master]
-    
+
 permissions:
-    contents: read
-    checks: write
-    id-token: write
-    
+  contents: read
+  checks: write
+  id-token: write
+
 jobs:
   run-tests:
     timeout-minutes: 5
@@ -34,10 +34,9 @@ jobs:
         with:
           name: test-report
           path: |
-             ./playwright-report/**/*.*
+            ./playwright-report/**/*.*
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
         if: success() || failure()
         with:
-          report_paths: "./playwright-report/results.xml"
-           
+          report_paths: './playwright-report/results.xml'
