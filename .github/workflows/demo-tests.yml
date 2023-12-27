@@ -30,7 +30,6 @@ jobs:
           name: test-report
           path: |
              ./playwright-report/**/*.*
-             ./test-results/**/*.*
       - name: Publish Test Report
         uses: mikepenz/action-junit-report@v4
         if: success() || failure()
