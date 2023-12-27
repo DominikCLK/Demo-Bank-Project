@@ -36,7 +36,7 @@ test.describe('Verify Fast transfer flow', () => {
       Number(fastTransferData.transferAmount),
     );
 
-    const expectedMessage = `Przelew wykonany! Jan Demobankowy - ${fastTransferData.transferAmount},00PLN - ${fastTransferData.titleOfTransfer}`;
+    const expectedMessage = `Przelew wykonany! Jan Demobankowy 123 - ${fastTransferData.transferAmount},00PLN - ${fastTransferData.titleOfTransfer}`;
 
     // Act
     await pulpitPage.createFastTransfer(fastTransferData);
