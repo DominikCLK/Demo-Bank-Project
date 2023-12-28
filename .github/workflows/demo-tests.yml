@@ -50,12 +50,12 @@ jobs:
         if: success() || failure()
         with:
           report_paths: './playwright-report/results.xml'
-      - name: Save cache always
-        id: save-playwright-cache
-        if: always()
-        uses: actions/cache/save@v3
-        with:
-          path: |
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright
+      # - name: Save cache always
+      #   id: save-playwright-cache
+      #   if: always()
+      #   uses: actions/cache/save@v3
+      #   with:
+      #     path: |
+      #       ~/.cache/ms-playwright
+      #     key: ${{ runner.os }}-playwright
         
