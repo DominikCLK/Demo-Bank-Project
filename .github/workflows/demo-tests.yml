@@ -30,7 +30,7 @@ jobs:
           echo 'Getting Playwright version...'
           cat package-lock.json
           echo '---'
-          node -e "console.log(require('./package-lock.json').dependencies['@playwright/test'].version)"
+          node -e "console.log(require('./packagelock.json').packages['node_modules/@playwright/test'].version)"
       - name: Cache playwright binaries
         uses: actions/cache@v3
         id: playwright-cache
