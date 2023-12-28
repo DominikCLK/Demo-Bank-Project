@@ -33,7 +33,7 @@ test.describe('Verify Phone transfer flow', () => {
     // Arrange
     const amount = pulpitPage.randomPhoneAmountTopUp;
     const phone = pulpitPage.randomPhoneOption;
-    const expectedMessage = `Doładowanie wykonane!1 ${amount},00PLN na numer ${phone}`;
+    const expectedMessage = `Doładowanie wykonane! ${amount},00PLN na numer ${phone}`;
 
     // Act
     await pulpitPage.createPhoneTransfer(phone, amount);
