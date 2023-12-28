@@ -29,11 +29,11 @@ test.describe('Verify Phone transfer flow', () => {
     await page.close();
   });
 
-  test('Verify that users can successfully create a phone transfer 1 @DB-R05-01 @DB-R05-02', async () => {
+  test('Verify that users can successfully create a phone transfer @DB-R05-01 @DB-R05-02', async () => {
     // Arrange
     const amount = pulpitPage.randomPhoneAmountTopUp;
     const phone = pulpitPage.randomPhoneOption;
-    const expectedMessage = `Doładowanie wykonane! ${amount},00PLN na numer ${phone}`;
+    const expectedMessage = `Doładowanie wykonane!1 ${amount},00PLN na numer ${phone}`;
 
     // Act
     await pulpitPage.createPhoneTransfer(phone, amount);
