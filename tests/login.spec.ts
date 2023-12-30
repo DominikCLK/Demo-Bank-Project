@@ -5,7 +5,7 @@ import { PulpitPage } from '../src/pages/pulpit.page';
 import { loggedTestUser, testUser } from '../src/test-data/user.data';
 import { expect, test } from '@playwright/test';
 
-test.describe('Verify login', () => {
+test.describe('Verify login @DB-login', () => {
   let loginPage: LoginPage;
   let pulpitPage: PulpitPage;
 
