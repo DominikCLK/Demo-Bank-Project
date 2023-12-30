@@ -10,6 +10,8 @@
     "test": "npx playwright test",
     "test:headed": "npm run test -- --headed",
     "test:ui": "npm run test -- --ui",
+    "test:login": "npx playwright test --grep /@DB-login/",
+    "test:all": "npx playwright test --grep-invert /@DB-login/",
     "show-report": "npx playwright show-report"
   },
   "keywords": [],
