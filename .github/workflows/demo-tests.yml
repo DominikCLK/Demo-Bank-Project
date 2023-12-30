@@ -35,7 +35,7 @@ jobs:
         uses: actions/cache@v3
         id: node-cache
         with:
-          path: | 
+          path: |
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Install dependencies
@@ -68,6 +68,7 @@ jobs:
       #     key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
 
   run-all-tests:
+    needs: [run-login-tests]
     timeout-minutes: 5
     runs-on: ubuntu-latest
     steps:
