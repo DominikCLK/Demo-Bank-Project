@@ -117,6 +117,13 @@ jobs:
           path: |
             ~/.cache/ms-playwright
           key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+      - name: Cache node_modules
+        uses: actions/cache@v3
+        id: node-cache
+        with:
+          path: |
+            node_modules
+          key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Run Playwright all tests
         run: npm run test:all
       - name: Archive tests results
