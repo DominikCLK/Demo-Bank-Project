@@ -14,10 +14,13 @@ permissions:
   checks: write
   id-token: write
 
-jobs:
+jobs:    
   prepare-env:
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -52,7 +55,7 @@ jobs:
   run-login-tests:
     needs: [prepare-env]
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -103,7 +106,7 @@ jobs:
   run-all-tests:
     needs: [run-login-tests, prepare-env]
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
