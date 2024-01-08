@@ -5,8 +5,8 @@ on:
   pull_request:
     branches: [main, master]
   workflow_dispatch:
-  schedule:
-    - cron: "5 4 * * 1-5"
+  # schedule:
+  #   - cron: "5 4 * * 1-5"
     
 
 permissions:
