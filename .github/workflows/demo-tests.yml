@@ -17,7 +17,10 @@ permissions:
 jobs:    
   prepare-env:
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -34,7 +37,7 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ matrix.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - name: Cache node_modules
         uses: actions/cache@v3
         id: node-cache
@@ -52,7 +55,10 @@ jobs:
   run-login-tests:
     needs: [prepare-env]
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -69,7 +75,7 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ matrix.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - name: Cache node_modules
         uses: actions/cache@v3
         id: node-cache
@@ -103,7 +109,10 @@ jobs:
   run-all-tests:
     needs: [run-login-tests, prepare-env]
     timeout-minutes: 5
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, macos-latest]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -120,7 +129,7 @@ jobs:
         with:
           path: |
             ~/.cache/ms-playwright
-          key: ${{ runner.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
+          key: ${{ matrix.os }}-playwright-${{ env.PLAYWRIGHT_VERSION }}
       - name: Cache node_modules
         uses: actions/cache@v3
         id: node-cache
