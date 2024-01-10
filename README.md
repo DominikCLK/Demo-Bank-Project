@@ -1,4 +1,4 @@
-# ⚡️Demo Bank Automated Testing
+# ⚡️Demo Bank Automated Testing ![2024-01-10_06h29_05](https://github.com/DominikCLK/Demo-Bank-Project/assets/75272795/346ee635-13c1-42e9-ab15-b342c242b285)
 
 ## Overview
 
