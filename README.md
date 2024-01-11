@@ -16,12 +16,6 @@ This project aims to ensure the reliability and functionality of the [Demo Bank]
 
 For the purposes of the project, fake data is made available in the repository under the .env file
 
-- **Playwright Framework:** A powerful automation framework for browsers.
-
-- **TypeScript:** Enhance code readability and maintainability with strong typing and modern features.
-
-- **Continuous Integration (CI):** Automate testing on code changes for a continuous feedback loop.
-
 ## 🛠 Technologies Used
 
 - **Playwright Framework:** A powerful automation framework for browsers.
