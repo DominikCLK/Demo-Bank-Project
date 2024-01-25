@@ -67,6 +67,10 @@ For more usage cases look in `package.json` scripts section.
 
 - [Test cases](https://docs.google.com/spreadsheets/d/1RqqELBk0kdBnF3xazXMpz79Zdp9VXOKEjNhC_aKY__8/edit?usp=sharing)
 
+##  Summary reports of tests
+
+![2024-01-25_09h52_24](https://github.com/DominikCLK/Demo-Bank-Project/assets/75272795/6446355d-f3d2-46d7-8db0-7d2fdb11988b)
+
 ## Author
 
 - [@DominikCLK](https://github.com/DominikCLK)
