@@ -69,7 +69,8 @@ For more usage cases look in `package.json` scripts section.
 
 ##  Summary reports of tests
 
-![2024-01-25_09h52_24](https://github.com/DominikCLK/Demo-Bank-Project/assets/75272795/6446355d-f3d2-46d7-8db0-7d2fdb11988b)
+![2024-01-25_09h52_24](https://github.com/DominikCLK/Demo-Bank-Project/assets/75272795/29a393b8-dc80-4afc-aa65-c47bf65c326d)
+
 
 ## Author
 
