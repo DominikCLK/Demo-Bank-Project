@@ -1,35 +1,21 @@
-import { LoginPage } from '../src/pages/login.page';
-import { PulpitPage } from '../src/pages/pulpit.page';
+import { expect, test } from '../src/fixtures/merge.fixture';
 import { testUser } from '../src/test-data/user.data';
-import { SubmitFastTransferView } from '../src/views/submitTransfer.view';
-import { expect, test } from '@playwright/test';
 
 test.describe('Verify Phone transfer flow', () => {
-  let loginPage: LoginPage;
-  let pulpitPage: PulpitPage;
-  let submitTransferView: SubmitFastTransferView;
-
-  test.beforeEach(async ({ page }) => {
-    // Arrange
-    loginPage = new LoginPage(page);
-    pulpitPage = new PulpitPage(page);
-    submitTransferView = new SubmitFastTransferView(page);
-
+  test.beforeEach(async ({ page, pulpitPage, loginPage }) => {
     // Act
-    await loginPage.goto();
     await loginPage.login(testUser);
     const title = await pulpitPage.title();
 
-    //Assert
+    // Assert
     expect(title).toContain(pulpitPage.titleText);
     await expect(page).toHaveURL(pulpitPage.url);
   });
 
-  test.afterEach(async ({ page }) => {
-    await page.close();
-  });
-
-  test('Verify that users can successfully create a phone transfer @DB-R05-01 @DB-R05-02', async () => {
+  test('Verify that users can successfully create a phone transfer @DB-R05-01 @DB-R05-02', async ({
+    pulpitPage,
+    submitFastTransferView,
+  }) => {
     // Arrange
     const amount = pulpitPage.randomPhoneAmountTopUp;
     const phone = pulpitPage.randomPhoneOption;
@@ -39,7 +25,7 @@ test.describe('Verify Phone transfer flow', () => {
     await pulpitPage.createPhoneTransfer(phone, amount);
     await pulpitPage.phoneTransferCheckbox.check();
     await pulpitPage.topUpBtn.click();
-    await submitTransferView.submitTransferBtn.click();
+    await submitFastTransferView.submitTransferBtn.click();
 
     //Assert
     await expect(pulpitPage.successfulTransferMessage).toHaveText(
@@ -47,7 +33,10 @@ test.describe('Verify Phone transfer flow', () => {
     );
   });
 
-  test('Verify that users can successfully create a phone transfer. Select 504 xxx xxx number from the list @DB-R05-03', async () => {
+  test('Verify that users can successfully create a phone transfer. Select 504 xxx xxx number from the list @DB-R05-03', async ({
+    pulpitPage,
+    submitFastTransferView,
+  }) => {
     // Arrange
     const amount = pulpitPage.randomTopUpOption;
     const phone = '504 xxx xxx';
@@ -57,7 +46,7 @@ test.describe('Verify Phone transfer flow', () => {
     await pulpitPage.createPhoneTransfer(phone, amount);
     await pulpitPage.phoneTransferCheckbox.check();
     await pulpitPage.topUpBtn.click();
-    await submitTransferView.submitTransferBtn.click();
+    await submitFastTransferView.submitTransferBtn.click();
 
     //Assert
     await expect(pulpitPage.successfulTransferMessage).toHaveText(
@@ -67,6 +56,7 @@ test.describe('Verify Phone transfer flow', () => {
 
   test.describe('Invalid Phone transfer', () => {
     test('Verify that users can not create top up phone transfer - empty amount @DB-R06-01', async ({
+      pulpitPage,
       page,
     }) => {
       // Arrange
@@ -83,7 +73,9 @@ test.describe('Verify Phone transfer flow', () => {
       );
     });
 
-    test('Verify that users can not create a phone transfer - unchecked permission @DB-R06-02', async () => {
+    test('Verify that users can not create a phone transfer - unchecked permission @DB-R06-02', async ({
+      pulpitPage,
+    }) => {
       // Arrange
       const amount = pulpitPage.randomTopUpOption;
       const phone = pulpitPage.randomPhoneOption;
