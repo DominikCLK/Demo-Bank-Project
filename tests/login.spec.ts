@@ -1,23 +1,13 @@
 import { randomLoginData } from '../src/factories/user.factory';
+import { expect, test } from '../src/fixtures/merge.fixture';
 import { UserNameModel } from '../src/models/user.model';
-import { LoginPage } from '../src/pages/login.page';
-import { PulpitPage } from '../src/pages/pulpit.page';
 import { loggedTestUser, testUser } from '../src/test-data/user.data';
-import { expect, test } from '@playwright/test';
 
 test.describe('Verify login @DB-login', () => {
-  let loginPage: LoginPage;
-  let pulpitPage: PulpitPage;
-
-  test.beforeEach(async ({ page }) => {
-    loginPage = new LoginPage(page);
-    pulpitPage = new PulpitPage(page);
-
-    await loginPage.goto();
-  });
-
   test('Verify that users can successfully log in with valid credentials. ID and password with exactly 8 characters @DB-R01-01 @DB-R01-02', async ({
     page,
+    loginPage,
+    pulpitPage,
   }) => {
     // Arrange
     const loggedUserData: UserNameModel = {
@@ -37,6 +27,7 @@ test.describe('Verify login @DB-login', () => {
 
   test('Verify that users can not log in with ID less than 8 characters @DB-R02-01', async ({
     page,
+    loginPage,
   }) => {
     // Arrange
     const invalidID = randomLoginData(7, 8);
@@ -53,6 +44,7 @@ test.describe('Verify login @DB-login', () => {
 
   test('Verify that users can not log in with password less than 8 characters @DB-R02-02', async ({
     page,
+    loginPage,
   }) => {
     // Arrange
     const invalidID = randomLoginData(8, 7);
@@ -72,6 +64,7 @@ test.describe('Verify login @DB-login', () => {
 
   test('Verify that users can not log in with empty password and ID fields @DB-R02-03', async ({
     page,
+    loginPage,
   }) => {
     // Arrange
     const title = await loginPage.title();
