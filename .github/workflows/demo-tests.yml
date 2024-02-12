@@ -77,7 +77,7 @@ jobs:
         run: npm run test:login
       - name: Archive tests results
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-login-tests-report
           path: |
@@ -128,7 +128,7 @@ jobs:
         run: npm run test:all
       - name: Archive tests results
         if: success() || failure()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-all-tests-report
           path: |
