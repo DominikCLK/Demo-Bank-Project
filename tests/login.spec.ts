@@ -1,7 +1,7 @@
-import { randomLoginData } from '../src/factories/user.factory';
-import { expect, test } from '../src/fixtures/merge.fixture';
-import { UserNameModel } from '../src/models/user.model';
-import { loggedTestUser, testUser } from '../src/test-data/user.data';
+import { randomLoginData } from '@_src/factories/user.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
+import { UserNameModel } from '@_src/models/user.model';
+import { loggedTestUser, testUser } from '@_src/test-data/user.data';
 
 test.describe('Verify login @DB-login', () => {
   test('Verify that users can successfully log in with valid credentials. ID and password with exactly 8 characters @DB-R01-01 @DB-R01-02', async ({

@@ -1,5 +1,5 @@
-import { expect, test } from '../src/fixtures/merge.fixture';
-import { testUser } from '../src/test-data/user.data';
+import { expect, test } from '@_src/fixtures/merge.fixture';
+import { testUser } from '@_src/test-data/user.data';
 
 test.describe('Verify Phone transfer flow', () => {
   test.beforeEach(async ({ page, pulpitPage, loginPage }) => {

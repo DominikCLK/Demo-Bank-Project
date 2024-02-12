@@ -1,5 +1,5 @@
-import { generateRandomSentence } from '../factories/randomData.factory';
-import { FastTransferModel } from '../models/transfer.model';
+import { generateRandomSentence } from '@_src/factories/randomData.factory';
+import { FastTransferModel } from '@_src/models/transfer.model';
 
 export function prepareTransferData(): FastTransferModel {
   const fastTransferData: FastTransferModel = {

@@ -1,4 +1,4 @@
-import { LoginUserModel } from '../models/user.model';
+import { LoginUserModel } from '@_src/models/user.model';
 import { faker } from '@faker-js/faker/locale/en';
 
 export function randomLoginData(

@@ -1,6 +1,6 @@
-import { prepareTransferData } from '../src/factories/transferData.factory';
-import { expect, test } from '../src/fixtures/merge.fixture';
-import { testUser } from '../src/test-data/user.data';
+import { prepareTransferData } from '@_src/factories/transferData.factory';
+import { expect, test } from '@_src/fixtures/merge.fixture';
+import { testUser } from '@_src/test-data/user.data';
 
 test.describe('Verify Fast transfer flow', () => {
   test.beforeEach(async ({ page, pulpitPage, loginPage }) => {
