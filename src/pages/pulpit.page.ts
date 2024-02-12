@@ -1,5 +1,5 @@
-import { FastTransferModel } from '../models/transfer.model';
 import { BasePage } from './base.page';
+import { FastTransferModel } from '@_src/models/transfer.model';
 import { Page } from '@playwright/test';
 
 export class PulpitPage extends BasePage {

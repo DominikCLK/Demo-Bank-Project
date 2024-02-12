@@ -1,6 +1,6 @@
-import { LoginPage } from '../pages/login.page';
-import { PulpitPage } from '../pages/pulpit.page';
-import { SubmitFastTransferView } from '../views/submitTransfer.view';
+import { LoginPage } from '@_src/pages/login.page';
+import { PulpitPage } from '@_src/pages/pulpit.page';
+import { SubmitFastTransferView } from '@_src/views/submitTransfer.view';
 import { test as baseTest } from '@playwright/test';
 
 const pageObjectTest = baseTest.extend<{

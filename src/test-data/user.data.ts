@@ -1,4 +1,4 @@
-import { LoginUserModel, UserNameModel } from '../models/user.model';
+import { LoginUserModel, UserNameModel } from '@_src/models/user.model';
 
 export const testUser: LoginUserModel = {
   userID: process.env.USER_ID ?? '[NOT SET]',
