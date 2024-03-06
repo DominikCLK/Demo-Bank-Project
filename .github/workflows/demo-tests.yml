@@ -58,12 +58,12 @@ jobs:
           cache: 'npm'
           registry-url: 'https://npm.pkg.github.com'
       - name: Fill .env file
-        run: cat > .env << EOF
+        run: echo '
           BASE_URL='${{ vars.BASE_URL }}'
           USER_ID='${{ vars.USER_ID }}'
           USER_PASSWORD='${{ vars.USER_PASSWORD }}'
           LOGGED_USER_NAME='${{ vars.LOGGED_USER_NAME }}'
-          EOF
+          ' > .env
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
@@ -117,12 +117,12 @@ jobs:
           cache: 'npm'
           registry-url: 'https://npm.pkg.github.com'
       - name: Fill .env file
-        run: cat > .env << EOF
+        run: echo '
           BASE_URL='${{ vars.BASE_URL }}'
           USER_ID='${{ vars.USER_ID }}'
           USER_PASSWORD='${{ vars.USER_PASSWORD }}'
           LOGGED_USER_NAME='${{ vars.LOGGED_USER_NAME }}'
-          EOF
+          ' > .env
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
