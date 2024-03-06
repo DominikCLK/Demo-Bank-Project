@@ -1,9 +1,9 @@
 import { LoginUserModel } from '@_src/models/user.model';
 import { BasePage } from '@_src/pages/base.page';
+import { PulpitPage } from '@_src/pages/pulpit.page';
 import { Page } from '@playwright/test';
 
 export class LoginPage extends BasePage {
-  url = '';
   userIDInput = this.page.getByTestId('login-input');
   userPasswordInput = this.page.getByTestId('password-input');
   loginButton = this.page.getByTestId('login-button');
@@ -20,11 +20,7 @@ export class LoginPage extends BasePage {
     super(page);
   }
 
-  async waitForPageToLoadUrl(): Promise<void> {
-    await this.page.waitForURL(this.url);
-  }
-
-  async login(loginUserData: LoginUserModel): Promise<void> {
+  async login(loginUserData: LoginUserModel): Promise<PulpitPage> {
     await this.userIDInput.fill(loginUserData.userID);
     await this.userPasswordInput.fill(loginUserData.userPassword);
 
@@ -34,5 +30,6 @@ export class LoginPage extends BasePage {
     if (!isButtonDisabled) {
       await this.loginButton.click();
     }
+    return new PulpitPage(this.page);
   }
 }
