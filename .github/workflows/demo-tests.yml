@@ -74,14 +74,12 @@ jobs:
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Run Playwright login tests
-        run: npm run test:login
         env:
           BASE_URL: ${{ env.BASE_URL }}
           LOGGED_USER_NAME: ${{ env.LOGGED_USER_NAME }}
           USER_ID: ${{ env.USER_ID }}
           USER_PASSWORD: ${{ env.USER_PASSWORD }}
-      - name: Show variables
-        run: echo "show base url ${{ env.BASE_URL }}"
+        run: npm run test:login
       - name: Archive tests results
         if: success() || failure()
         uses: actions/upload-artifact@v4
