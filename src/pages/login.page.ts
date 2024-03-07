@@ -11,11 +11,6 @@ export class LoginPage extends BasePage {
   loginIdError = this.page.getByTestId('error-login-id');
   loginPasswordError = this.page.getByTestId('error-login-password');
 
-  titleText = 'Demobank - Bankowość Internetowa - Logowanie';
-  loginIdTextError = 'identyfikator ma min. 8 znaków';
-  loginPasswordTextError = 'hasło ma min. 8 znaków';
-  requiredFieldText = 'pole wymagane';
-
   constructor(page: Page) {
     super(page);
   }

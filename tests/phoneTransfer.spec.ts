@@ -1,3 +1,4 @@
+import { PulpitMessages } from '@_src/enums/messages.dicts';
 import { expect, test } from '@_src/fixtures/merge.fixture';
 import { testUser } from '@_src/test-data/user.data';
 
@@ -8,7 +9,7 @@ test.describe('Verify Phone transfer flow', () => {
     const title = await pulpitPage.title();
 
     // Assert
-    expect(title).toContain(pulpitPage.titleText);
+    expect(title).toContain(PulpitMessages.PulpitTitleText);
     await expect(page).toHaveURL(pulpitPage.url);
   });
 
@@ -69,7 +70,7 @@ test.describe('Verify Phone transfer flow', () => {
 
       //Assert
       await expect(pulpitPage.topUpErrorPhoneTransfer).toHaveText(
-        pulpitPage.requiredFieldText,
+        PulpitMessages.PulpitRequiredFieldText,
       );
     });
 
@@ -86,7 +87,7 @@ test.describe('Verify Phone transfer flow', () => {
 
       //Assert
       await expect(pulpitPage.agreementErrorPhoneTransfer).toHaveText(
-        pulpitPage.requiredFieldText,
+        PulpitMessages.PulpitRequiredFieldText,
       );
     });
   });

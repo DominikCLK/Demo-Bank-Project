@@ -4,8 +4,6 @@ import { Page } from '@playwright/test';
 
 export class PulpitPage extends BasePage {
   url = '/pulpit.html';
-  titleText = 'Demobank - Bankowość Internetowa - Pulpit';
-  requiredFieldText = 'pole wymagane';
 
   userName = this.page.getByTestId('user-name');
   moneyValue = this.page.locator('#money_value');

@@ -1,3 +1,4 @@
+import { LoginMessages, PulpitMessages } from '@_src/enums/messages.dicts';
 import { randomLoginData } from '@_src/factories/user.factory';
 import { expect, test } from '@_src/fixtures/merge.fixture';
 import { UserNameModel } from '@_src/models/user.model';
@@ -20,7 +21,7 @@ test.describe('Verify login @DB-login', () => {
     const title = await pulpitPage.title();
 
     //Assert
-    expect(title).toContain(pulpitPage.titleText);
+    expect(title).toContain(PulpitMessages.PulpitTitleText);
     await expect(page).toHaveURL(pulpitPage.url);
     await expect(pulpitPage.userName).toHaveText(userName);
   });
@@ -37,9 +38,11 @@ test.describe('Verify login @DB-login', () => {
     const title = await loginPage.title();
 
     //Assert
-    expect(title).toContain(loginPage.titleText);
+    expect(title).toContain(LoginMessages.TitleText);
     await expect(page).toHaveURL(loginPage.url);
-    await expect(loginPage.loginIdError).toHaveText(loginPage.loginIdTextError);
+    await expect(loginPage.loginIdError).toHaveText(
+      LoginMessages.LoginIdTextError,
+    );
   });
 
   test('Verify that users can not log in with password less than 8 characters @DB-R02-02', async ({
@@ -55,10 +58,10 @@ test.describe('Verify login @DB-login', () => {
     await page.click('body');
 
     //Assert
-    expect(title).toContain(loginPage.titleText);
+    expect(title).toContain(LoginMessages.TitleText);
     await expect(page).toHaveURL(loginPage.url);
     await expect(loginPage.loginPasswordError).toHaveText(
-      loginPage.loginPasswordTextError,
+      LoginMessages.LoginPasswordTextError,
     );
   });
 
@@ -75,14 +78,14 @@ test.describe('Verify login @DB-login', () => {
     await page.click('body');
 
     //Assert
-    expect(title).toContain(loginPage.titleText);
+    expect(title).toContain(LoginMessages.TitleText);
     await expect(page).toHaveURL(loginPage.url);
 
     await expect(loginPage.loginIdError).toHaveText(
-      loginPage.requiredFieldText,
+      LoginMessages.LoginRequiredFieldText,
     );
     await expect(loginPage.loginPasswordError).toHaveText(
-      loginPage.requiredFieldText,
+      LoginMessages.LoginRequiredFieldText,
     );
   });
 });
