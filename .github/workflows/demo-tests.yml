@@ -74,6 +74,8 @@ jobs:
           key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Install dotenv
         run: npm i dotenv
+      - name: cp .env
+        run: cp .env-template .env
       - name: Run Playwright login tests
         run: npm run test:login
         env:
