@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test';
 
 export class BasePage {
-  url = process.env.BASE_URL;
+  url = '';
   constructor(protected page: Page) {}
 
   async goto(): Promise<void> {
