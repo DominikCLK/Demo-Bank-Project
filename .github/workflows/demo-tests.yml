@@ -15,6 +15,7 @@ env:
   LOGGED_USER_NAME: ${{ vars.LOGGED_USER_NAME }}
   USER_ID: ${{ vars.USER_ID }}
   USER_PASSWORD: ${{ vars.USER_PASSWORD }}
+  TEST_LOGIN_WORKFLOW: ${{ vars.TEST_LOGIN_WORKFLOW }}
 
 jobs:
   prepare-env:
@@ -82,7 +83,7 @@ jobs:
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Run Playwright login tests
-        run: npm run test:login
+        run: ${{ vars.TEST_LOGIN_WORKFLOW }}
       - name: Archive tests results
         if: success() || failure()
         uses: actions/upload-artifact@v4
