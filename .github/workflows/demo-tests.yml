@@ -76,8 +76,12 @@ jobs:
           path: |
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - name: Run Playwright login tests
-        run: set variables
+      - name: set variables
+        run: |
+          echo "BASE URL is ${{ vars.BASE_URL }}"
+          echo "LOGGED_USER_NAME is ${{ vars.LOGGED_USER_NAME }}"
+          echo "USER_ID is ${{ vars.USER_ID }}"
+          echo "USER_PASSWORD is ${{ vars.USER_PASSWORD }}"
         env:
           BASE_URL: ${{ vars.BASE_URL }}
           LOGGED_USER_NAME: ${{ vars.LOGGED_USER_NAME }}
