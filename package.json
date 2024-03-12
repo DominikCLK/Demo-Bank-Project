@@ -11,7 +11,9 @@
     "test:headed": "npm run test -- --headed",
     "test:ui": "npm run test -- --ui",
     "test:login": "npx playwright test --grep /@DB-R01-01/",
+    "test:login:workflow": "BASE_URL=$BASE_URL LOGGED_USER_NAME=$LOGGED_USER_NAME USER_ID=$USER_ID USER_PASSWORD=$USER_PASSWORD npx playwright test --grep /@DB-R01-01/",
     "test:all": "npx playwright test --grep-invert /@DB-R01-01/",
+    "test:all:workflow": "BASE_URL=$BASE_URL LOGGED_USER_NAME=$LOGGED_USER_NAME USER_ID=$USER_ID USER_PASSWORD=$USER_PASSWORD npx playwright test --grep-invert /@DB-R01-01/",
     "show-report": "npx playwright show-report"
   },
   "keywords": [],

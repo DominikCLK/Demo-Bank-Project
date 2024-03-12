@@ -1,11 +1,10 @@
 import { FastTransferModel } from '@_src/models/transfer.model';
 import { BasePage } from '@_src/pages/base.page';
+import { SubmitFastTransferView } from '@_src/views/submitTransfer.view';
 import { Page } from '@playwright/test';
 
 export class PulpitPage extends BasePage {
   url = '/pulpit.html';
-  titleText = 'Demobank - Bankowość Internetowa - Pulpit';
-  requiredFieldText = 'pole wymagane';
 
   userName = this.page.getByTestId('user-name');
   moneyValue = this.page.locator('#money_value');
@@ -65,16 +64,20 @@ export class PulpitPage extends BasePage {
     super(page);
   }
 
-  async createFastTransfer(fastTransferData: FastTransferModel): Promise<void> {
+  async createFastTransfer(
+    fastTransferData: FastTransferModel,
+  ): Promise<SubmitFastTransferView> {
     await this.recipientList.selectOption(fastTransferData.recipientOfTransfer);
     await this.amountInput.fill(String(fastTransferData.transferAmount));
     await this.titleInput.fill(fastTransferData.titleOfTransfer);
+
+    return new SubmitFastTransferView(this.page);
   }
 
   async createPhoneTransfer(
     phone: string,
     amount: number | string,
-  ): Promise<void> {
+  ): Promise<SubmitFastTransferView> {
     await this.phoneList.selectOption(`${phone}`);
 
     const inputType = await this.phoneTransferAmountInput.evaluate((input) => {
@@ -88,6 +91,7 @@ export class PulpitPage extends BasePage {
     } else {
       await this.phoneTransferAmountInput.fill(String(amount));
     }
+    return new SubmitFastTransferView(this.page);
   }
 
   async subtractNumbers(a: number, b: number): Promise<number> {

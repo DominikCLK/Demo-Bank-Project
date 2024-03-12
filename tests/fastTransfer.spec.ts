@@ -1,3 +1,4 @@
+import { PulpitMessages } from '@_src/enums/messages.dicts';
 import { prepareTransferData } from '@_src/factories/transferData.factory';
 import { expect, test } from '@_src/fixtures/merge.fixture';
 import { testUser } from '@_src/test-data/user.data';
@@ -9,7 +10,7 @@ test.describe('Verify Fast transfer flow', () => {
     const title = await pulpitPage.title();
 
     // Assert
-    expect(title).toContain(pulpitPage.titleText);
+    expect(title).toContain(PulpitMessages.PulpitTitleText);
     await expect(page).toHaveURL(pulpitPage.url);
   });
 
@@ -79,7 +80,7 @@ test.describe('Verify Fast transfer flow', () => {
 
       //Assert
       await expect(pulpitPage.recipientRequiredErrorFastTransfer).toHaveText(
-        pulpitPage.requiredFieldText,
+        PulpitMessages.PulpitRequiredFieldText,
       );
     });
 
@@ -96,7 +97,7 @@ test.describe('Verify Fast transfer flow', () => {
 
       //Assert
       await expect(pulpitPage.amountRequiredErrorFastTransfer).toHaveText(
-        pulpitPage.requiredFieldText,
+        PulpitMessages.PulpitRequiredFieldText,
       );
     });
 
@@ -113,7 +114,7 @@ test.describe('Verify Fast transfer flow', () => {
 
       //Assert
       await expect(pulpitPage.titleRequiredErrorFastTransfer).toHaveText(
-        pulpitPage.requiredFieldText,
+        PulpitMessages.PulpitRequiredFieldText,
       );
     });
   });
