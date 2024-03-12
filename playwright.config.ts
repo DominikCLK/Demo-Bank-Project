@@ -25,8 +25,8 @@ export default defineConfig({
     baseURL: process.env.BASE_URL,
     actionTimeout: 0,
     trace: 'retain-on-failure',
-    video: 'on',
-    screenshot: 'on',
+    video: 'retain-on-failure',
+    screenshot: 'only-on-failure',
   },
 
   projects: [
