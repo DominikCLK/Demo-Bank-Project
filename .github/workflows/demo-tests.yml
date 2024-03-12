@@ -82,7 +82,7 @@ jobs:
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Run Playwright login tests
-        run: test:login:workflow
+        run: npm run test:login:workflow
       - name: Archive tests results
         if: success() || failure()
         uses: actions/upload-artifact@v4
@@ -134,7 +134,7 @@ jobs:
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
       - name: Run Playwright all tests
-        run: test:all:workflow
+        run: npm run test:all:workflow
       - name: Archive tests results
         if: success() || failure()
         uses: actions/upload-artifact@v4
