@@ -14,12 +14,12 @@ This project aims to ensure the reliability and functionality of the [Demo Bank]
 
 ## 💬 Note
 
-Here I am  present a tests for the Demo Bank online website. To log in, enter any 8 characters of your ID and any 8 characters of your password. Do not provide real data!
+Here I am  presenting tests for the Demo Bank online website. To log in, enter any 8 characters of your ID and any 8 characters of your password. Do not provide real data!
 For example:
 
 ```
-user id: 11112222
-user password: anypassword
+user id: <--- any 8-character id
+user password: <--- any 8-character password
 ```
 
 ## 🛠 Technologies Used
@@ -50,10 +50,15 @@ git clone https://github.com/DominikCLK/Demo-Bank-Project.git
 - install dependencies: `npm install`
 - setup Playwright with: `npx playwright install --with-deps chromium`
 - setup husky with: `npx husky install`
-- prepare local env file : `cp .env-template .env`
-- copy app main URL as value `BASE_URL` variable in `.env` file
-
-## Use
+- prepare local env file: `cp .env-template .env`
+- To have the test passed set values in created  `.env` file:
+```
+BASE_URL='https://demo-bank.vercel.app'
+USER_ID='' <--pass here any 8 character id
+USER_PASSWORD='' <--pass here any 8 character password
+LOGGED_USER_NAME='Jan Demobankowy'
+```
+<br>
 
 Run all tests:
 
