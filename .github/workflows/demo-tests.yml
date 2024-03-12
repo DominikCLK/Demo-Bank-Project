@@ -25,7 +25,7 @@ jobs:
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
       - name: show env vars
-        run: echo "BASE URL is ${{ vars.BASE_URL }}"
+        run: echo "BASE URL is ${{ vars.BASE_URL }}" >> $GITHUB_ENV
       - name: Cache playwright binaries
         uses: actions/cache@v4
         id: playwright-cache
