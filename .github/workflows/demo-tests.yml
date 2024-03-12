@@ -76,17 +76,15 @@ jobs:
           path: |
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - name: Install dotenv
-        run: npm i dotenv
-      - name: cp .env
-        run: cp .env-template .env
       - name: Run Playwright login tests
-        run: npm run test:login
+        run: set variables
         env:
           BASE_URL: ${{ vars.BASE_URL }}
           LOGGED_USER_NAME: ${{ vars.LOGGED_USER_NAME }}
           USER_ID: ${{ vars.USER_ID }}
           USER_PASSWORD: ${{ vars.USER_PASSWORD }}
+      - name: Run Playwright login tests
+        run: npm run test:login
       - name: Archive tests results
         if: success() || failure()
         uses: actions/upload-artifact@v4
