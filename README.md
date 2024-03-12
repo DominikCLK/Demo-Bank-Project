@@ -14,7 +14,13 @@ This project aims to ensure the reliability and functionality of the [Demo Bank]
 
 ## 💬 Note
 
-For the purposes of the project, fake data is made available in the repository under the .env file
+Here I am  present a tests for the Demo Bank online website. To log in, enter any 8 characters of your ID and any 8 characters of your password. Do not provide real data!
+For example:
+
+```
+user id: 11112222
+user password: anypassword
+```
 
 ## 🛠 Technologies Used
 
