@@ -12,9 +12,9 @@ permissions:
 
 env:
   BASE_URL: ${{ vars.BASE_URL }}
-  LOGGED_USER_NAME: ${{ vars.LOGGED_USER_NAME }}
-  USER_ID: ${{ vars.USER_ID }}
-  USER_PASSWORD: ${{ vars.USER_PASSWORD }}
+  LOGGED_USER_NAME: ${{ secrets.LOGGED_USER_NAME }}
+  USER_ID: ${{ secrets.USER_ID }}
+  USER_PASSWORD: ${{ secrets.USER_PASSWORD }}
 
 jobs:
   prepare-env:
