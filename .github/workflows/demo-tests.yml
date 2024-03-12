@@ -10,6 +10,12 @@ permissions:
   checks: write
   id-token: write
 
+env:
+  BASE_URL: ${{ vars.BASE_URL }}
+  LOGGED_USER_NAME: ${{ vars.LOGGED_USER_NAME }}
+  USER_ID: ${{ vars.USER_ID }}
+  USER_PASSWORD: ${{ vars.USER_PASSWORD }}
+
 jobs:
   prepare-env:
     timeout-minutes: 5
@@ -25,8 +31,6 @@ jobs:
       - name: Get installed Playwright version
         id: playwright-version
         run: echo "PLAYWRIGHT_VERSION=$(node -e "console.log(require('./package-lock.json').packages['node_modules/@playwright/test'].version)")" >> $GITHUB_ENV
-      - name: show env vars
-        run: echo "BASE URL is ${{ vars.BASE_URL }}"
       - name: Cache playwright binaries
         uses: actions/cache@v4
         id: playwright-cache
@@ -47,6 +51,7 @@ jobs:
       - name: Install Playwright Browsers
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps
+
   run-login-tests:
     needs: [prepare-env]
     timeout-minutes: 5
@@ -76,17 +81,6 @@ jobs:
           path: |
             node_modules
           key: node_modules-${{ hashFiles('package-lock.json') }}
-      - name: set variables
-        run: |
-          echo "BASE URL is ${{ vars.BASE_URL }}"
-          echo "LOGGED_USER_NAME is ${{ vars.LOGGED_USER_NAME }}"
-          echo "USER_ID is ${{ vars.USER_ID }}"
-          echo "USER_PASSWORD is ${{ vars.USER_PASSWORD }}"
-        env:
-          BASE_URL: ${{ vars.BASE_URL }}
-          LOGGED_USER_NAME: ${{ vars.LOGGED_USER_NAME }}
-          USER_ID: ${{ vars.USER_ID }}
-          USER_PASSWORD: ${{ vars.USER_PASSWORD }}
       - name: Run Playwright login tests
         run: npm run test:login
       - name: Archive tests results
