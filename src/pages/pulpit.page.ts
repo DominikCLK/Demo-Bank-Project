@@ -1,7 +1,7 @@
 import { FastTransferModel } from '@_src/models/transfer.model';
 import { BasePage } from '@_src/pages/base.page';
 import { SubmitFastTransferView } from '@_src/views/submitTransfer.view';
-import { Page } from '@playwright/test';
+import { Locator, Page } from '@playwright/test';
 
 export class PulpitPage extends BasePage {
   url = '/pulpit.html';
@@ -94,19 +94,19 @@ export class PulpitPage extends BasePage {
     return new SubmitFastTransferView(this.page);
   }
 
-  async subtractNumbers(a: number, b: number): Promise<number> {
+  async subtractFundsNumbers(a: number, b: number): Promise<number> {
     return a - b;
   }
 
-  async getAvailableFunds(): Promise<number> {
-    const availableFundsString = await this.moneyValue.innerText();
+  async getAvailableFunds(funds: Locator): Promise<number> {
+    const availableFundsString = await funds.innerText();
     return Number(availableFundsString);
   }
 
-  async calculateFundsAfterTransfer(
+  async calculateFundsAfterFastTransfer(
     availableFunds: number,
     transferAmount: number,
   ): Promise<number> {
-    return this.subtractNumbers(availableFunds, transferAmount);
+    return this.subtractFundsNumbers(availableFunds, transferAmount);
   }
 }

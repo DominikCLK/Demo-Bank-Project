@@ -1,4 +1,4 @@
-import { faker } from '@faker-js/faker/locale/en';
+import { faker } from '@faker-js/faker/locale/pl';
 
 export function generateRandomSentence(length: number): string {
   let sentence = faker.lorem.sentence();
@@ -8,4 +8,8 @@ export function generateRandomSentence(length: number): string {
   sentence = sentence.substring(0, length);
 
   return sentence;
+}
+
+export function generateBankAccountNumber(length: number): string {
+  return faker.finance.accountNumber(length);
 }

@@ -20,11 +20,14 @@ test.describe('Verify Fast transfer flow', () => {
   }) => {
     // Arrange
     const fastTransferData = prepareTransferData();
-    const availableFunds = await pulpitPage.getAvailableFunds();
-    const result = await pulpitPage.calculateFundsAfterTransfer(
-      availableFunds,
-      Number(fastTransferData.transferAmount),
+    const availableFunds = await pulpitPage.getAvailableFunds(
+      pulpitPage.moneyValue,
     );
+    const resultAfterFastTransfer =
+      await pulpitPage.calculateFundsAfterFastTransfer(
+        availableFunds,
+        Number(fastTransferData.transferAmount),
+      );
 
     const expectedMessage = `Przelew wykonany! Jan Demobankowy - ${fastTransferData.transferAmount},00PLN - ${fastTransferData.titleOfTransfer}`;
 
@@ -37,7 +40,9 @@ test.describe('Verify Fast transfer flow', () => {
     await expect(pulpitPage.successfulTransferMessage).toHaveText(
       expectedMessage,
     );
-    await expect(pulpitPage.moneyValue).toHaveText(String(result));
+    await expect(pulpitPage.moneyValue).toHaveText(
+      String(resultAfterFastTransfer),
+    );
   });
 
   test('Verify that users can successfully create a fast transfer for Michael Scott @DB-R03-01 @DB-R03-02', async ({
@@ -46,8 +51,10 @@ test.describe('Verify Fast transfer flow', () => {
   }) => {
     // Arrange
     const fastTransferData = prepareTransferData();
-    const availableFunds = await pulpitPage.getAvailableFunds();
-    const result = await pulpitPage.calculateFundsAfterTransfer(
+    const availableFunds = await pulpitPage.getAvailableFunds(
+      pulpitPage.moneyValue,
+    );
+    const result = await pulpitPage.calculateFundsAfterFastTransfer(
       availableFunds,
       Number(fastTransferData.transferAmount),
     );
