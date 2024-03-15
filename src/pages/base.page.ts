@@ -11,7 +11,14 @@ export class BasePage {
   async title(): Promise<string> {
     return await this.page.title();
   }
-  async waitForPageToLoadUrl(): Promise<void> {
-    await this.page.waitForURL(this.url);
+
+  async verifyCurrentUrl(): Promise<void> {
+    const currentUrl = this.page.url();
+
+    if (!currentUrl.includes(this.url)) {
+      throw new Error(
+        `Expected URL containing: ${this.url}, Actual URL: ${currentUrl}`,
+      );
+    }
   }
 }
