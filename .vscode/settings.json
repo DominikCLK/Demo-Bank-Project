@@ -4,5 +4,25 @@
   "cSpell.words": ["trivago"],
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
-  }
+  },
+  "cSpell.ignoreRegExpList": [
+    "wykonaj przelew",
+    "przelew_nowy_zew.html",
+    "Demobank - Bankowość Internetowa - Logowanie",
+    "identyfikator ma min. 8 znaków'",
+    "hasło ma min. 8 znaków'",
+    "pole wymagane",
+    "Demobank - Bankowość Internetowa - Pulpit",
+    "wykonaj",
+    "topup",
+    "zapoznałem się z regulaminem",
+    "doładuj telefon",
+    "Przelew wykonany",
+    "Odbiorca",
+    "Kwota",
+    "Nazwa",
+    "Demobankowy",
+    "numer",
+    "Doładowanie wykonane"
+  ]
 }

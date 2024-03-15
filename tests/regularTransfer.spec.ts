@@ -14,7 +14,7 @@ test.describe('As a user, I want to create regular transfers from the payment se
     await pulpitPage.verifyCurrentUrl();
   });
 
-  test('Verify that users can successfully create a regular transfer. Only requaired fields @DB-R07-01 @DB-R07-02', async ({
+  test('Verify that users can successfully create a regular transfer. Only required fields @DB-R07-01 @DB-R07-02', async ({
     regularTransfer,
     pulpitPage,
     submitFastTransferView,
